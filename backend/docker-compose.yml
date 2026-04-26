@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://sportshield:sportshield@db:5432/sportshield
+      - REDIS_URL=redis://redis:6379
+      - DEMO_MODE=true
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./uploads:/app/uploads
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: sportshield
+      POSTGRES_PASSWORD: sportshield
+      POSTGRES_DB: sportshield
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:
