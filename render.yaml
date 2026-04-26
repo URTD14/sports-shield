@@ -1,0 +1,22 @@
+services:
+  - name: sportshield-backend
+    env: Python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GROQ_API_KEY
+        value: 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
+      - key: GROQ_FALLBACK_KEY
+        value: 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
+      - key: GROQ_PRIMARY_MODEL
+        value: llama-3.3-70b-versatile
+      - key: GROQ_FALLBACK_MODEL
+        value: moonshotai/kimi-k2-instruct
+      - key: SECRET_KEY
+        value: sportshield_hackathon_2024_secret_key_very_secure
+      - key: DATABASE_URL
+        value: sqlite:///./sportshield.db
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: DEMO_MODE
+        value: "false"
